@@ -10,22 +10,55 @@ jobs:
         os: [windows-latest] # , ubuntu-latest, macos-latest
     runs-on: ${{ matrix.os }}
     steps:
-#       - name: update gcc (Windows)
-#         if: ${{ runner.os == 'Windows' }}
-#         run: |
-#           aria2c -o win-gcc.7z https://github.com/niXman/mingw-builds-binaries/releases/download/13.1.0-rt_v11-rev1/x86_64-13.1.0-release-posix-seh-ucrt-rt_v11-rev1.7z
-#           7z x .\win-gcc.7z
-#           echo "${{ github.workspace }}/mingw64/bin" >> $GITHUB_PATH
-#           echo "${{ env }}"
+      - name: Check-out repository
+        uses: actions/checkout@v3
+
+      # Prepared environment
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          architecture: 'x64'
+          cache: 'pip'
+          
       - name: update gcc (Windows)
         if: ${{ runner.os == 'Windows' }}
-        uses: msys2/setup-msys2@v2
+        run: |
+          aria2c -o win-gcc.7z https://github.com/niXman/mingw-builds-binaries/releases/download/13.1.0-rt_v11-rev1/x86_64-13.1.0-release-posix-seh-ucrt-rt_v11-rev1.7z
+          7z x .\win-gcc.7z
+          echo "${{ github.workspace }}/mingw64/bin" >> $GITHUB_PATH
+          
+      - name: Install UPX (Windows)
+        if: ${{ runner.os == 'Windows' }}
+        uses: crazy-max/ghaction-upx@v2
         with:
-          msystem: UCRT64
-          update: true
-          cache: true
-          path-type: inherit
-          install: git mingw-w64-ucrt-x86_64-gcc
+          install-only: true
+          
+      - name: Build (Windows)
+        if: ${{ runner.os == 'Windows' }}
+        uses: Nuitka/Nuitka-Action@main
+        with:
+          script-name: main.py
+          show-scons: false
+          mingw64: true
+          standalone: true
+          onefile: false
+          output-file: meg-windows-x86_64
+          enable-plugins: upx
+          include-module: apscheduler.triggers.date
+          include-data-dir: config=config
+          windows-icon-from-ico: data/images/logo_small.ico
+          
+#           echo "${{ env }}"
+#       - name: update gcc (Windows)
+#         if: ${{ runner.os == 'Windows' }}
+#         uses: msys2/setup-msys2@v2
+#         with:
+#           msystem: UCRT64
+#           update: true
+#           cache: true
+#           path-type: inherit
+#           install: git mingw-w64-ucrt-x86_64-gcc
           
 #       - name: update gcc (macOS)
 #         if: ${{ runner.os == 'macOS' }}
@@ -37,6 +70,6 @@ jobs:
 #         run: |
 #           sudo bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
           
-      - name: print gcc version
-        run: |
-          gcc -v
+#       - name: print gcc version
+#         run: |
+#           gcc -v
