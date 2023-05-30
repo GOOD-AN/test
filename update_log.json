@@ -1,0 +1,76 @@
+{
+    "least_version": "3.0.3",
+    "last_version": "3.0.3",
+    "update_log":[
+        {
+            "version": "1.0.0",
+            "update_time": "2022-09-07",
+            "update_content": ["第一版发布"]
+        },
+        {
+            "version": "1.1.0",
+            "update_time": "2022-10-31",
+            "update_content": ["1.新增主程序, 优化使用体验", "2.优化部分功能逻辑"]
+        },
+        {
+            "version": "1.1.1",
+            "update_time": "2022-10-31",
+            "update_content": ["修复检查更新时的错误"]
+        },
+        {
+            "version": "1.1.2",
+            "update_time": "2022-11-01",
+            "update_content": ["更新检测到新版本时的输出"]
+        },
+        {
+            "version": "2.0.0",
+            "update_time": "2022-11-10",
+            "update_content": ["1.项目目录重构", "2.优化部分功能逻辑"]
+        },
+        {
+            "version": "2.0.1",
+            "update_time": "2022-11-11",
+            "update_content": ["1.修复部分输入判断逻辑", "2.添加当前米游币数量判断"]
+        },
+        {
+            "version": "2.0.2",
+            "update_time": "2022-11-12",
+            "update_content": ["修复部分情况下配置文件读取错误"]
+        },
+        {
+            "version": "2.0.3",
+            "update_time": "2022-11-16",
+            "update_content": ["1.修改部分目录结构", "2.添加其他配置设置", "3.添加欢迎语"]
+        },
+        {
+            "version": "2.0.4",
+            "update_time": "2022-11-17",
+            "update_content": ["1.修复配置文件错误", "2.修复时间读取错误"]
+        },
+        {
+            "version": "2.0.5",
+            "update_time": "2023-03-13",
+            "update_content": ["1.将请求库由requests改为HTTPX", "2.兑换商品修改为异步", "3.修复部分错误"]
+        },
+        {
+            "version": "3.0.0",
+            "update_time": "2023-05-03",
+            "update_content": ["1.更新项目结构", "2.更新异步定时任务", "3.添加多账号支持"]
+        },
+        {
+            "version": "3.0.1",
+            "update_time": "2023-05-04",
+            "update_content": ["1.添加日志配置"]
+        },
+        {
+            "version": "3.0.2",
+            "update_time": "2023-05-05",
+            "update_content": ["1.添加星铁兑换项目", "2.修复部分错误"]
+        },
+        {
+            "version": "3.0.3",
+            "update_time": "2023-05-25",
+            "update_content": ["1.整合接口", "2.修复部分错误"]
+        }
+    ]
+}
