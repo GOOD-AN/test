@@ -35,6 +35,7 @@ jobs:
         if: ${{ runner.os == 'macOS' }}
         run: |
           wget https://github.com/Homebrew/homebrew-core/raw/0ed3ec35c0071ac53f4335b51e1e7a80489b4f25/Formula/upx.rb
+          brew install upx.rb
           brew install ccache
 
       - name: Build (macOS)
