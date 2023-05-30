@@ -7,7 +7,7 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [windows-latest, ubuntu-latest, macos-latest]
+        os: [windows-latest] # , ubuntu-latest, macos-latest
     runs-on: ${{ matrix.os }}
     steps:
 #       - name: update gcc (Windows)
@@ -24,6 +24,7 @@ jobs:
           msystem: UCRT64
           update: true
           cache: true
+          path-type: inherit
           install: git mingw-w64-ucrt-x86_64-gcc
           
 #       - name: update gcc (macOS)
