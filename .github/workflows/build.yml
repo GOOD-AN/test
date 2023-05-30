@@ -31,12 +31,11 @@ jobs:
         run: |
           pip install imageio
 
-      - name: Install LLVM & UPX (macOS)
+      - name: Install LLVM & UPX & ccache (macOS)
         if: ${{ runner.os == 'macOS' }}
         run: |
-          brew update
-          brew install llvm
-          brew install upx
+          wget https://github.com/Homebrew/homebrew-core/raw/0ed3ec35c0071ac53f4335b51e1e7a80489b4f25/Formula/upx.rb
+          brew install ccache
 
       - name: Build (macOS)
         if: ${{ runner.os == 'macOS' }}
