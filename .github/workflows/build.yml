@@ -26,19 +26,18 @@ jobs:
       - name: Install 7zip (Linux)
         if: ${{ runner.os == 'Linux' }}
         run: |
-          sudo apt update && sudo apt upgrade
           sudo apt remove p7zip-full
           wget https://www.7-zip.org/a/7z2300-linux-x64.tar.xz
           tar -xf 7z2300-linux-x64.tar.xz
           sudo cp 7zz /usr/bin/7zz
           
-      - name: Compressed Files (Windows & macOS)
-        if: ${{ runner.os == 'Windows' || runner.os == 'macOS' }}
+      - name: Compressed Files (Windows)
+        if: ${{ runner.os == 'Windows' }}
         run: |
           7z a -tzip -mx=9 -mm=LZMA -mfb=258 -mmt=on ./build/${{ runner.os }}.zip ./*
 
-      - name: Compressed Files (Linux)
-        if: ${{ runner.os == 'Linux' }}
+      - name: Compressed Files (Linux & macOS)
+        if: ${{ runner.os == 'Linux' || runner.os == 'macOS' }}
         run: |
           7zz a -tzip -mx=9 -mm=LZMA -mfb=258 -mmt=on ./build/${{ runner.os }}.zip ./*
 
