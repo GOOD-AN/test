@@ -37,7 +37,6 @@ jobs:
         uses: Nuitka/Nuitka-Action@main
         with:
           script-name: main.py
-          show-scons: false
           standalone: true
           onefile: false
           output-file: meg-linux-x86_64
