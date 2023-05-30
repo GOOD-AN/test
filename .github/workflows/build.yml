@@ -7,7 +7,7 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [macos-latest]
+        os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Check-out repository
@@ -26,37 +26,32 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Install Python Dependencies (macOS)
-        if: ${{ runner.os == 'macOS' }}
+      - name: Install ccache (Linux)
+        if: ${{ runner.os == 'Linux' }}
         run: |
-          pip install imageio
+          sudo apt install -y ccache
+          echo ccache -V
 
-      - name: Install LLVM & UPX & ccache (macOS)
-        if: ${{ runner.os == 'macOS' }}
-        run: |
-          wget https://github.com/Homebrew/homebrew-core/raw/0ed3ec35c0071ac53f4335b51e1e7a80489b4f25/Formula/upx.rb
-          brew install upx.rb
-          brew install ccache
-
-      - name: Build (macOS)
-        if: ${{ runner.os == 'macOS' }}
+      - name: Build (Linux)
+        if: ${{ runner.os == 'Linux' }}
         uses: Nuitka/Nuitka-Action@main
         with:
           script-name: main.py
           show-scons: false
           standalone: true
           onefile: false
-          output-file: meg-macos-x86_64
+          output-file: meg-linux-x86_64
           enable-plugins: upx
           include-module: apscheduler.triggers.date
           include-data-dir: config=config
-          macos-app-icon: data/images/logo_small.ico
 
       # Compressed Files
-      - name: Install 7zip (macOS)
-        if: ${{ runner.os == 'macOS' }}
+      - name: Install 7zip (Linux)
+        if: ${{ runner.os == 'Linux' }}
         run: |
-          brew install sevenzip
+          wget https://www.7-zip.org/a/7z2201-linux-x64.tar.xz
+          tar -xf 7z2201-linux-x64.tar.xz
+          sudo cp 7zz /usr/bin/7zz
 
       - name: Compressed Files (Linux & macOS)
         if: ${{ runner.os == 'Linux' || runner.os == 'macOS' }}
